@@ -4,10 +4,10 @@ services:
     image: eclipse-mosquitto
     volumes:
       - "./mosquitto:/mosquitto"
-    networks:
-      - localnet
     ports:
       - "1883:1883"
+    expose:
+      - 1883
 
   node-red:
     depends_on:
@@ -19,8 +19,3 @@ services:
       - "1880:1880"
     volumes:
       - ./node-red-data:/data
-    networks:
-      - localnet
-
-networks:
-  localnet:
