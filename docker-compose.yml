@@ -1,0 +1,21 @@
+version: '3'
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    volumes:
+      - "./mosquitto:/mosquitto"
+    ports:
+      - "1883:1883"
+    expose:
+      - 1883
+
+  node-red:
+    depends_on:
+      - mosquitto
+    image: nodered/node-red:latest
+    environment:
+      - TZ=Europe/Vilnius
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./node-red-data:/data
