@@ -8,6 +8,8 @@ services:
       - "8883:8883"
     expose:
       - 8883
+    networks:
+      - backend
 
   node-red:
     depends_on:
@@ -19,3 +21,15 @@ services:
       - "1880:1880"
     volumes:
       - ./node-red-data:/data
+    networks:
+      - web-public
+      - backend
+    extra_hosts:
+      - "slimcaddy.localhost=172.18.0.2"
+
+
+networks:
+  web-public:
+    external: true
+  backend:
+    name: nodered-backend
